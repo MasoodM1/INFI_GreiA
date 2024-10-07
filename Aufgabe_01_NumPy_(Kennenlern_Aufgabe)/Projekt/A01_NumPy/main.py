@@ -40,6 +40,18 @@ a_4_gleich = np.random.uniform(0, 10, 100).astype(int)
 #  1 4 5 5 5 1 1 2 0 5 5 8 8 7 4 8 0 1 4 3 7 5 9 5 6 9 8 1 3 6 5 1 1 5 0 4 4
 #  6 8 1 4 2 5 3 8 6 9 9 7 5 1 6 2 2 0 6 4 7 0 3 0 3 5]
 
+
+b_1_mean = np.mean(a_4_normal)
+# Ausgabe: -0.59
+b_1_median = np.median(a_4_normal)
+# Ausgabe: 0.0
+b_1_min = np.min(a_4_normal)
+# Ausgabe: -26
+b_1_max = np.max(a_4_normal)
+# Ausgabe: 19
+b_1_std_deviation = np.std(a_4_normal)
+# Ausgabe: 8.646496400276819
+
 # Press the green button in the gutter to run the script.
 if __name__ == '__main__':
     print(a_1)
@@ -47,5 +59,10 @@ if __name__ == '__main__':
     print(a_3)
     print(a_4_normal)
     print(a_4_gleich)
+    print(b_1_mean)
+    print(b_1_median)
+    print(b_1_min)
+    print(b_1_max)
+    print(b_1_std_deviation)
 
 # See PyCharm help at https://www.jetbrains.com/help/pycharm/
