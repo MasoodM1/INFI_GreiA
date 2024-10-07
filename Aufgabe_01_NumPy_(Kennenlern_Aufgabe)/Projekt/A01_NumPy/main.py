@@ -52,6 +52,22 @@ b_1_max = np.max(a_4_normal)
 b_1_std_deviation = np.std(a_4_normal)
 # Ausgabe: 8.646496400276819
 
+b_3_multiplied = a_4_gleich * 100
+# Ausgabe: [400 600   0 900 900 800   0 800 100 400 900 200 400   0 800 200 300 200
+#  700   0 400 900 500 300 600 400 200 400 800 900 800   0 500 800 800 100
+#  700 100 800 200 200 100 700   0 400 900 700 700 900 200   0 400 600   0
+#  100 900 800   0 700 100 900 800 100 600 900 500 300 900 800 100 400 100
+#    0 900 100   0 500 300 600 900 800 400 700   0 700 900 200   0 100 200
+#  100 800 100   0 100 500   0 700 400 500]
+
+b_4 = a_4_gleich[:10]
+# Ausgabe: [0 6 8 1 1 8 2 3 3 0]
+
+b_5 = a_4_gleich[a_4_gleich > 0]
+# Ausgabe: [5 1 8 9 4 5 7 9 7 8 7 1 8 9 8 4 6 8 9 2 4 2 3 2 1 9 4 3 8 7 6 1 8 1 9 4 5
+#  9 8 9 3 2 4 2 6 4 9 1 8 3 1 6 4 1 4 3 9 7 7 9 5 9 5 2 1 9 7 7 8 9 5 6 6 3
+#  3 9 3 1 4 4 3 8 6 8 9 2 4 2 7 7 1]
+
 # Press the green button in the gutter to run the script.
 if __name__ == '__main__':
     print(a_1)
@@ -64,5 +80,8 @@ if __name__ == '__main__':
     print(b_1_min)
     print(b_1_max)
     print(b_1_std_deviation)
+    print(b_3_multiplied)
+    print(b_4)
+    print(b_5)
 
 # See PyCharm help at https://www.jetbrains.com/help/pycharm/
