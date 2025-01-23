@@ -40,20 +40,23 @@ plt.show()
 print("Pixel des zehnten Bildes:")
 print(x_train[10])
 
+tmp_dir = 'Aufgabe_05_MNISTFashionKlassifikation/A05_KERAS/tmp_Daten'
+os.makedirs(tmp_dir, exist_ok=True)
+
 # Bilder speichern
-for i in range(0, 100):
+for i in range(0, 20):
     im = Image.fromarray(x_train[i])
     real = y_train[i]
-    im.save("tmp_Daten/%d_%d.jpeg" % (i, real))
+    im.save(os.path.join(tmp_dir, "%d_%d.jpeg" % (i, real)))
 
 # Ordner erstellen für jede Kategorie
 categories = np.unique(y_train)
-base_dir = 'categorized_images'
+base_dir = 'Aufgabe_05_MNISTFashionKlassifikation/A05_KERAS/categorized_images'
 os.makedirs(base_dir, exist_ok=True)
 for category in categories:
     os.makedirs(os.path.join(base_dir, str(category)), exist_ok=True)
 # Bilder in die Ordner speichern
-for i in range(len(x_train)):
+for i in range(50):
     im = Image.fromarray(x_train[i])
     category = y_train[i]
     im.save(os.path.join(base_dir, str(category), f"{i}.jpeg"))
@@ -120,15 +123,15 @@ for i in range(0, 100):
     print(y_labels[i], pred_i)
 
 # Modell speichern
-model.save('model.h5')
-model.save_weights("model.weights.h5")
+model.save('Aufgabe_05_MNISTFashionKlassifikation/A05_KERAS/model.h5')
+model.save_weights("Aufgabe_05_MNISTFashionKlassifikation/A05_KERAS/model.weights.h5")
 
 weights = model.get_weights()
 j = json.dumps(pd.Series(weights).to_json(orient='values'), indent=3)
 print(j)
 
-model = keras.models.load_model('model.h5')
-model.load_weights("model.weights.h5")
+model = keras.models.load_model('Aufgabe_05_MNISTFashionKlassifikation/A05_KERAS/model.h5')
+model.load_weights("Aufgabe_05_MNISTFashionKlassifikation/A05_KERAS/model.weights.h5")
 
 model_json = model.to_json()
-print(model_json)
+print(model_json) 
