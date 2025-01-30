@@ -1,5 +1,5 @@
 import os.path
-
+import resize as rs
 import cv2
 import time
 
@@ -23,13 +23,13 @@ print("CAP_PROP_HUE : '{}'".format(capture.get(cv2.CAP_PROP_HUE)))
 print("CAP_PROP_GAIN  : '{}'".format(capture.get(cv2.CAP_PROP_GAIN)))
 print("CAP_PROP_CONVERT_RGB : '{}'".format(capture.get(cv2.CAP_PROP_CONVERT_RGB)))
 
-
-what = 'stone'
+"""
+what = 'scissors'
 name = 'Masood_Muradi'
 howoften = 1
 
 outdir = os.path.join('Aufgabe_06_CNN_SchereSteinPapier/A06_CNN/img', what)
-#os.makedirs(outdir)
+os.makedirs(outdir)
 
 while True:
     ret, frame = capture.read()
@@ -43,3 +43,10 @@ while True:
         print("{} written!".format(img_counter))
         start_time = time.time()
         img_counter += 1
+"""
+
+
+input_folder = 'Aufgabe_06_CNN_SchereSteinPapier/A06_CNN/img/scissors'
+output_folder = 'Aufgabe_06_CNN_SchereSteinPapier/A06_CNN/img_resize/scissors'
+resizer = rs.ImageResizer(input_folder, output_folder)
+resizer.resize_images()
