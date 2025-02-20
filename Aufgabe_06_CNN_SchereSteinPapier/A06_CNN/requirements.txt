@@ -1,0 +1,9 @@
+numpy
+matplotlib
+keras
+tensorflow
+Pillow
+pandas
+transformers
+mediapipe
+cv2

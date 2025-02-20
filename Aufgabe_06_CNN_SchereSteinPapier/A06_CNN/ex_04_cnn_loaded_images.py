@@ -5,6 +5,7 @@ from tensorflow import keras
 from keras import layers
 from keras.datasets import mnist, fashion_mnist
 import matplotlib.pyplot as plt
+from tensorflow import keras
 import json
 from PIL import Image
 
