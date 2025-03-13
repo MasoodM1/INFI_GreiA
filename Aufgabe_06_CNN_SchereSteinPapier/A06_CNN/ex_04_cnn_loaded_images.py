@@ -1,81 +1,45 @@
-import numpy as np
-import pandas as pd
-import collections #used for counting items of a list
-from tensorflow import keras
-from keras import layers
-from keras.datasets import mnist, fashion_mnist
-import matplotlib.pyplot as plt
-from tensorflow import keras
-import json
-from PIL import Image
+import os.path
+
+import cv2
+import time
+
+capture = cv2.VideoCapture(0)
+capture.set(cv2.CAP_PROP_FRAME_WIDTH, 640)
+capture.set(cv2.CAP_PROP_FRAME_WIDTH, 480)
+img_counter = 0
+frame_set = []
+start_time = time.time()
+
+# showing values of the properties
+print("CV_CAP_PROP_FRAME_WIDTH: '{}'".format(capture.get(cv2.CAP_PROP_FRAME_WIDTH)))
+print("CV_CAP_PROP_FRAME_HEIGHT : '{}'".format(capture.get(cv2.CAP_PROP_FRAME_HEIGHT)))
+print("CAP_PROP_FPS : '{}'".format(capture.get(cv2.CAP_PROP_FPS)))
+print("CAP_PROP_POS_MSEC : '{}'".format(capture.get(cv2.CAP_PROP_POS_MSEC)))
+print("CAP_PROP_FRAME_COUNT  : '{}'".format(capture.get(cv2.CAP_PROP_FRAME_COUNT)))
+print("CAP_PROP_BRIGHTNESS : '{}'".format(capture.get(cv2.CAP_PROP_BRIGHTNESS)))
+print("CAP_PROP_CONTRAST : '{}'".format(capture.get(cv2.CAP_PROP_CONTRAST)))
+print("CAP_PROP_SATURATION : '{}'".format(capture.get(cv2.CAP_PROP_SATURATION)))
+print("CAP_PROP_HUE : '{}'".format(capture.get(cv2.CAP_PROP_HUE)))
+print("CAP_PROP_GAIN  : '{}'".format(capture.get(cv2.CAP_PROP_GAIN)))
+print("CAP_PROP_CONVERT_RGB : '{}'".format(capture.get(cv2.CAP_PROP_CONVERT_RGB)))
 
 
-"""
-## Prepare the data
-"""
+what = 'scissors'
+name = 'masoodmuradi'
+howoften = 1
 
-# Model / data parameters
-num_classes = 3
-input_shape = (180, 180, 3)
+outdir = os.path.join('Aufgabe_06_CNN_SchereSteinPapier/A06_CNN/img_resize/', what)
+os.makedirs(outdir)
 
-d = keras.preprocessing.image_dataset_from_directory('Aufgabe_06_CNN_SchereSteinPapier/A06_CNN/img_resize', image_size=(180, 180), label_mode='categorical', batch_size= 1000)
-
-images = None
-labels = None
-
-print("Class names: %s" % d.class_names) # Welche Kategorien gibt es generell
-
-for d, l in d.take(1):
-    images = d
-    labels = l
-
-print(images.shape)
-print(labels.shape)
-
-model = keras.Sequential(
-    [
-        keras.Input(shape=input_shape),
-        layers.Conv2D(32, kernel_size=(3, 3), activation="relu"),
-        layers.MaxPooling2D(pool_size=(2, 2)),
-        layers.Conv2D(64, kernel_size=(3, 3), activation="relu"),
-        layers.MaxPooling2D(pool_size=(2, 2)),
-        layers.Flatten(),
-        layers.Dropout(0.5),
-        layers.Dense(num_classes, activation="softmax"),
-    ]
-)
-
-model.summary()
-
-
-# ## Train the model
-model.compile(loss="categorical_crossentropy", optimizer="adam", metrics=["accuracy"])
-#
-history = model.fit(images, labels, batch_size=128, epochs=1, validation_split=0.1)
-
-image = Image.open('Aufgabe_06_CNN_SchereSteinPapier/A06_CNN/img_resize/stone/stone_0_Masood_Muradi.png')
-newsize = (180, 180)
-image = image.resize(newsize)
-
-im_arr = np.array(image)
-im_arr = np.reshape(image, (1, 180, 180, 3))
-print(im_arr.shape)
-pred = model.predict(im_arr)
-print(pred)
-
-# """
-# How to load and save the model
-# """
-#
-# model.save('/home/albert/model.mdl')
-# model.save_weights("/home/albert/model.h5")
-#
-# weights = model.get_weights()
-# j =json.dumps(pd.Series(weights).to_json(orient='values'), indent=3)
-# #print(j)
-#
-# model = keras.models.load_model('/home/albert/model.mdl')
-# model.load_weights("/home/albert/model.h5")
-#
-# model_json = model.to_json()
-# #print (model_json)
+while True:
+    ret, frame = capture.read()
+    gray = cv2.cvtColor(frame, cv2.COLOR_BGR2GRAY)
+    cv2.imshow('frame', gray)
+    if cv2.waitKey(1) & 0xFF == ord('q'):
+        break
+    if time.time() - start_time >= howoften: #Check if howoften sec passed
+        img_name = "{}_{}_{}.png".format(what, img_counter, name)
+        cv2.imwrite(os.path.join(outdir, img_name), frame)
+        print("{} written!".format(img_counter))
+        start_time = time.time()
+        img_counter += 1

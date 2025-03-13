@@ -1,19 +1,18 @@
-import os
 from PIL import Image
+import os
 import numpy as np
 
-class ImageResizer:
-    def __init__(self, input_folder, output_folder, size=(180, 180)):
-        self.input_folder = input_folder
-        self.output_folder = output_folder
-        self.size = size
-        os.makedirs(output_folder, exist_ok=True)
+folders = ['Schere', 'Stein', 'Papier']
+output_folder = 'Aufgabe_06_CNN_SchereSteinPapier/A06_CNN/img_resize/'
 
-    def resize_images(self):
-        for filename in os.listdir(self.input_folder):
-            if filename.endswith(('.png', '.jpg', '.jpeg')):
-                img_path = os.path.join(self.input_folder, filename)
-                img = np.array(Image.open(img_path).resize(self.size))
-                output_path = os.path.join(self.output_folder, filename)
-                Image.fromarray(img).save(output_path)
-                print(f"Resized and saved {filename} to {self.output_folder}")
+if not os.path.exists(output_folder):
+    os.makedirs(output_folder)
+
+for folder in folders:
+    folder_path = f'Aufgabe_06_CNN_SchereSteinPapier/A06_CNN/img/{folder}/'
+    for filename in os.listdir(folder_path):
+        if filename.endswith('.png'):
+            img_path = os.path.join(folder_path, filename)
+            img = np.array(Image.open(img_path).resize((180, 180)))
+            output_path = os.path.join(output_folder, f'{folder}_{filename}')
+            Image.fromarray(img).save(output_path)
